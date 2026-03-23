@@ -1,0 +1,877 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Orders | Stackly Grocery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./nav2.css" />
+    <link rel="stylesheet" href="./footer2.css" />
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #5e0d8b 0%, #3a0b5a 100%);
+        --accent-color: #c81e61;
+        --accent-hover: #b01a55;
+        --bg-soft: #f8f9fa;
+      }
+
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        background-color: var(--bg-soft);
+        font-family: "Inter", sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .btn-primary {
+        background-color: var(--accent-color);
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+
+      .order-card {
+        border-radius: 16px;
+        transition: all 0.2s ease;
+      }
+
+      .status-delivered {
+        background-color: #def7ec;
+        color: #03543f;
+      }
+      .status-processing {
+        background-color: #fef3c7;
+        color: #92400e;
+      }
+      .status-cancelled {
+        background-color: #fde2e1;
+        color: #9b1c1c;
+      }
+
+      .modal-overlay {
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+      }
+
+      /* Mobile specific adjustments */
+      @media (max-width: 640px) {
+        .order-card {
+          padding: 1rem;
+        }
+        .filter-btn {
+          font-size: 0.875rem;
+          padding: 0.5rem 1rem;
+        }
+      }
+      .break-words {
+        word-break: break-word;
+      }
+      .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #ffffff;
+        min-width: 180px;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        display: none;
+        flex-direction: column;
+        padding: 8px 0;
+        z-index: 1000;
+      }
+
+      .dropdown-content a {
+        padding: 10px 16px;
+        text-decoration: none;
+        font-size: 14px;
+        color: #333;
+        display: block;
+        transition: 0.2s;
+      }
+
+      .dropdown-content a:hover {
+        background: #f8f8f8;
+        color: #c81e61;
+      }
+    </style>
+  </head>
+  <body class="text-gray-800 antialiased">
+    <nav class="navbar" aria-label="Main Navigation">
+      <div class="logo-container">
+        <a href="./home2.html"
+          ><img src="./assets/logoog.webp" alt="Stackly Logo" class="logo-img"
+        /></a>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="./home2.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+            HOME
+          </a>
+          <div class="dropdown-content" style="color: #333333">
+            <a href="./home2.html">HOME 2</a>
+            <a href="./index.html">HOME 1</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="./history.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+              />
+            </svg>
+            ORDER HISTORY
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./dash.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+              />
+            </svg>
+            DASHBOARD
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./contact.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+              />
+            </svg>
+            CONTACT
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./profile.html" class="nav-link btn-profile">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+            PROFILE
+          </a>
+        </li>
+      </ul>
+
+      <button class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-overlay"></div>
+    <div class="mobile-nav">
+      <div class="nav-item">
+        <a href="#" class="nav-link dropdown-toggle">
+          <svg viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+          HOME
+          <svg
+            class="chevron"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </a>
+        <div class="dropdown-content">
+          <a href="./home2.html">HOME 2</a>
+          <a href="./index.html">HOME 1</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="./history.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+            />
+          </svg>
+          ORDER HISTORY
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./dash.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+            />
+          </svg>
+          DASHBOARD
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./contact.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+            />
+          </svg>
+          CONTACT
+        </a>
+      </div>
+      <a href="./profile.html" class="nav-link btn-profile">
+        <svg viewBox="0 0 24 24" fill="white">
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+        PROFILE
+      </a>
+    </div>
+    <!-- Simple Brand Header (Since full Nav is removed) -->
+    <div class="bg-white px-4 py-4 shadow-sm sm:hidden text-center">
+      <h1 class="text-xl font-bold text-purple-900">Stackly</h1>
+    </div>
+
+    <main class="max-w-[1200px] mx-auto px-4 py-6 sm:py-12">
+      <!-- Page Header -->
+      <header class="mb-8">
+        <h2
+          class="text-2xl sm:text-4xl font-extrabold text-gray-900 tracking-tight"
+        >
+          My Orders
+        </h2>
+        <p class="text-gray-500 mt-2 text-sm sm:text-base">
+          Track and manage your previous grocery orders
+        </p>
+      </header>
+
+      <!-- Filter Section -->
+      <div
+        class="flex flex-wrap pb-2 sm:pb-0 gap-2 sm:gap-3 mb-8"
+        id="filter-container"
+      >
+        <button
+          data-filter="all"
+          class="filter-btn flex-shrink-0 active px-5 py-2 rounded-full border border-purple-800 bg-purple-900 text-white font-semibold transition-all shadow-sm"
+        >
+          All Orders
+        </button>
+        <button
+          data-filter="Delivered"
+          class="filter-btn flex-shrink-0 px-5 py-2 rounded-full border border-gray-200 bg-white hover:border-purple-300 font-medium transition-all shadow-sm"
+        >
+          Delivered
+        </button>
+        <button
+          data-filter="Processing"
+          class="filter-btn flex-shrink-0 px-5 py-2 rounded-full border border-gray-200 bg-white hover:border-purple-300 font-medium transition-all shadow-sm"
+        >
+          Processing
+        </button>
+        <button
+          data-filter="Cancelled"
+          class="filter-btn flex-shrink-0 px-5 py-2 rounded-full border border-gray-200 bg-white hover:border-purple-300 font-medium transition-all shadow-sm"
+        >
+          Cancelled
+        </button>
+      </div>
+
+      <!-- Orders Grid -->
+      <div id="orders-list" class="grid grid-cols-1 gap-4 sm:gap-6">
+        <!-- JavaScript will inject cards here -->
+      </div>
+
+      <!-- Empty State -->
+      <div
+        id="empty-state"
+        class="hidden flex-col items-center justify-center py-20 text-center"
+      >
+        <div
+          class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6"
+        >
+          <i class="fas fa-shopping-bag text-3xl text-gray-300"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800">No orders found</h3>
+        <p class="text-gray-500 mb-8 max-w-xs mx-auto text-sm">
+          You don't have any orders in this category yet.
+        </p>
+        <button
+          onclick="window.location.reload()"
+          class="btn-primary text-white px-8 py-3 rounded-2xl font-bold shadow-lg shadow-pink-200"
+        >
+          Browse Products
+        </button>
+      </div>
+    </main>
+
+    <!-- Order Detail Modal -->
+    <div
+      id="order-modal"
+      class="fixed inset-0 z-[60] hidden flex items-end sm:items-center justify-center p-0 sm:p-4"
+    >
+      <div class="modal-overlay absolute inset-0" onclick="closeModal()"></div>
+      <div
+        class="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl shadow-2xl relative z-10 max-h-[92vh] flex flex-col overflow-hidden sm:mt-16"
+      >
+        <div
+          class="p-5 border-b bg-white flex justify-between items-center shrink-0"
+        >
+          <div>
+            <h3 class="text-lg font-bold">Order Summary</h3>
+            <p
+              id="modal-order-id"
+              class="text-xs font-mono text-purple-600"
+            ></p>
+          </div>
+          <button
+            onclick="closeModal()"
+            class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full text-gray-500 hover:text-gray-800 transition-colors"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div id="modal-content" class="p-5 overflow-y-auto">
+          <!-- Content injected via JS -->
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-container">
+        <!-- SECTION 1: BRAND -->
+        <div class="footer-section">
+          <a href="./home2.html">
+            <img
+              src="./assets/logoog.webp"
+              alt="Stackly Logo"
+              class="footer-logo"
+          /></a>
+          <p class="brand-desc">
+            Fast grocery delivery at your doorstep. Freshness guaranteed within
+            minutes.
+          </p>
+        </div>
+
+        <!-- SECTION 2: QUICK LINKS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="./home2.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                HOME</a
+              >
+            </li>
+            <li>
+              <a href="./history.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                ORDER HISTORY</a
+              >
+            </li>
+            <li>
+              <a href="./dash.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                DASHBOARD</a
+              >
+            </li>
+            <li>
+              <a href="./contact.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  ></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                CONTACT</a
+              >
+            </li>
+            <li>
+              <a href="./profile.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                PROFILE</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- SECTION 3: ADDRESS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Head Office</h4>
+          <address class="address-box">
+            Stackly Pvt Ltd<br />
+            4th Floor, Tech Park<br />
+            Bengaluru, Karnataka<br />
+            India – 560001
+          </address>
+          <div class="contact-info">
+            <p><strong>Phone:</strong> +91 98765 43210</p>
+            <p><strong>Email:</strong> support@stackly.com</p>
+          </div>
+        </div>
+
+        <!-- SECTION 4: NEWSLETTER + SOCIAL -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Stay Updated</h4>
+          <form class="newsletter-form" action="./4042.html">
+            <input type="email" placeholder="Your Email Address" required />
+            <button type="submit">SUBSCRIBE</button>
+          </form>
+          <div class="social-icons">
+            <a href="./4042.html" class="social-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Twitter">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                ></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM BAR -->
+      <div class="footer-bottom">
+        <p class="copyright">
+          &copy; 2026 Stackly Delivery Services Pvt Ltd. All rights reserved.
+        </p>
+      </div>
+    </footer>
+    <script src="./nav2.js"></script>
+    <script>
+      /* ============================
+   ORDER DATA
+============================ */
+
+      const ordersData = [
+        {
+          id: "STK-IN-98210",
+          date: "12 Oct, 2023",
+          status: "Delivered",
+          total: 1245.5,
+          address: "Flat 402, Green Meadows, HSR Layout, Bengaluru, KA 560102",
+          payment: "UPI (Google Pay)",
+          deliveryTime: "10:30 AM - 11:00 AM",
+          items: [
+            {
+              name: "Organic Bananas (1 Dozen)",
+              qty: 1,
+              price: 60.0,
+              img: "./assets/frv/fr2.webp",
+            },
+            {
+              name: "Almond Milk 1L",
+              qty: 2,
+              price: 250.0,
+              img: "./assets/bakery/br6.webp",
+            },
+            {
+              name: "Avocado (Imported)",
+              qty: 2,
+              price: 342.75,
+              img: "./assets/frv/fr10.webp",
+            },
+          ],
+        },
+
+        {
+          id: "STK-IN-97554",
+          date: "10 Oct, 2023",
+          status: "Processing",
+          total: 450.0,
+          address: "Flat 402, Green Meadows, HSR Layout, Bengaluru, KA 560102",
+          payment: "Paytm Wallet",
+          deliveryTime: "Expected in 12 mins",
+          items: [
+            {
+              name: "Nachos Party Pack",
+              qty: 1,
+              price: 150.0,
+              img: "./assets/home/his33.webp",
+            },
+            {
+              name: "Coke Zero 500ml",
+              qty: 4,
+              price: 75.0,
+              img: "./assets/str/st1.webp",
+            },
+          ],
+        },
+
+        {
+          id: "STK-IN-96210",
+          date: "05 Oct, 2023",
+          status: "Cancelled",
+          total: 2499.0,
+          address: "Work: WeWork Galaxy, MG Road, Bengaluru",
+          payment: "Credit Card",
+          deliveryTime: "Cancellation Reflected",
+          items: [
+            {
+              name: "Fresh Atlantic Salmon (500g)",
+              qty: 2,
+              price: 900.0,
+              img: "./assets/home/his11.webp",
+            },
+            {
+              name: "Greek Yogurt Tub",
+              qty: 1,
+              price: 699.0,
+              img: "./assets/home/his22.webp",
+            },
+          ],
+        },
+      ];
+
+      /* ============================
+   ELEMENTS
+============================ */
+
+      const ordersList = document.getElementById("orders-list");
+      const emptyState = document.getElementById("empty-state");
+      const modal = document.getElementById("order-modal");
+      const modalContent = document.getElementById("modal-content");
+      const modalOrderId = document.getElementById("modal-order-id");
+      const filterBtns = document.querySelectorAll(".filter-btn");
+
+      /* ============================
+   FORMAT CURRENCY
+============================ */
+
+      function formatCurrency(amount) {
+        return new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          maximumFractionDigits: 2,
+        }).format(amount);
+      }
+
+      /* ============================
+   RENDER ORDERS
+============================ */
+
+      function renderOrders(filter = "all") {
+        let filteredOrders;
+
+        if (filter === "all") {
+          filteredOrders = ordersData;
+        } else {
+          filteredOrders = ordersData.filter(
+            (order) => order.status === filter,
+          );
+        }
+
+        ordersList.innerHTML = "";
+
+        if (filteredOrders.length === 0) {
+          ordersList.classList.add("hidden");
+          emptyState.classList.remove("hidden");
+          emptyState.classList.add("flex");
+          return;
+        }
+
+        ordersList.classList.remove("hidden");
+        emptyState.classList.add("hidden");
+        emptyState.classList.remove("flex");
+
+        filteredOrders.forEach((order) => {
+          const firstItem = order.items[0];
+          const statusClass = `status-${order.status.toLowerCase()}`;
+
+          const itemNames = order.items.map((i) => i.name).join(", ");
+          const displayNames =
+            itemNames.length > 50
+              ? itemNames.substring(0, 50) + "..."
+              : itemNames;
+
+          const card = document.createElement("div");
+
+          card.className = `
+order-card bg-white p-4 sm:p-6 border border-gray-100 shadow-sm
+flex flex-wrap sm:flex-nowrap items-center justify-between
+gap-4 sm:gap-6
+`;
+
+          card.innerHTML = `
+
+<div class="flex items-center gap-4 w-full sm:w-auto">
+
+<div class="relative flex-shrink-0">
+<img src="${firstItem.img}"
+alt="${firstItem.name}"
+class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover bg-gray-50 flex-shrink-0">
+
+${
+  order.items.length > 1
+    ? `<span class="absolute -bottom-1 -right-1 bg-white border border-gray-100 text-[10px] font-bold px-1.5 py-0.5 rounded shadow-sm">+${order.items.length - 1}</span>`
+    : ""
+}
+
+</div>
+
+<div class="flex-1 min-w-0">
+<h4 class="font-bold text-gray-900 truncate text-sm sm:text-base">${displayNames}</h4>
+
+<div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1">
+
+<span class="text-xs text-gray-500">${order.date}</span>
+<span class="text-gray-300">•</span>
+
+<span class="text-xs font-mono font-medium text-purple-700">${order.id}</span>
+
+</div>
+</div>
+
+</div>
+
+
+<div class="flex flex-wrap sm:flex-nowrap items-center justify-between w-full sm:w-auto sm:gap-8 border-t sm:border-t-0 pt-4 sm:pt-0">
+
+<div class="text-left sm:text-right">
+
+<span class="block text-lg font-extrabold text-gray-900">
+${formatCurrency(order.total)}
+</span>
+
+<span class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${statusClass}">
+${order.status}
+</span>
+
+</div>
+
+<button onclick="viewDetails('${order.id}')"
+class="btn-primary text-white text-sm px-6 py-2.5 rounded-xl font-bold shadow-md shadow-pink-100">
+Details
+</button>
+
+</div>
+`;
+
+          ordersList.appendChild(card);
+        });
+      }
+
+      /* ============================
+   VIEW ORDER DETAILS
+============================ */
+
+      function viewDetails(orderId) {
+        const order = ordersData.find((o) => o.id === orderId);
+        if (!order) return;
+
+        modalOrderId.textContent = order.id;
+
+        const itemsHTML = order.items
+          .map(
+            (item) => `
+
+<div class="flex items-center justify-between py-4 border-b border-gray-100 last:border-0">
+
+<div class="flex items-center gap-3">
+
+<img src="${item.img}"
+class="w-12 h-12 rounded-xl bg-gray-50 object-cover border border-gray-100">
+
+<div>
+<p class="text-sm font-bold text-gray-800">${item.name}</p>
+<p class="text-xs text-gray-500">${formatCurrency(item.price)} × ${item.qty}</p>
+</div>
+
+</div>
+
+<p class="text-sm font-bold text-gray-900">
+${formatCurrency(item.price * item.qty)}
+</p>
+
+</div>
+
+`,
+          )
+          .join("");
+
+        modalContent.innerHTML = `
+
+<div class="space-y-6">
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+<div class="bg-purple-50 p-3 rounded-2xl break-words">
+
+<p class="text-[10px] text-purple-400 uppercase font-black mb-1">
+Delivery Address
+</p>
+
+<p class="text-xs font-medium text-purple-900 leading-relaxed break-words">
+${order.address}
+</p>
+
+</div>
+
+<div class="bg-gray-50 p-3 rounded-2xl">
+
+<p class="text-[10px] text-gray-400 uppercase font-black mb-1">
+Payment & Time
+</p>
+
+<p class="text-xs font-medium text-gray-800">${order.payment}</p>
+
+<p class="text-[10px] text-gray-500 mt-1">${order.deliveryTime}</p>
+
+</div>
+
+</div>
+
+
+<div>
+
+<h4 class="text-xs font-black uppercase text-gray-400 mb-2">
+Itemized Bill
+</h4>
+
+<div class="bg-white border border-gray-100 rounded-2xl px-4">
+
+${itemsHTML}
+
+</div>
+
+</div>
+
+
+<div class="bg-gray-900 text-white p-5 rounded-2xl space-y-3">
+
+<div class="flex justify-between text-xs text-gray-400">
+<span>Subtotal</span>
+<span>${formatCurrency(order.total - 40)}</span>
+</div>
+
+<div class="flex justify-between text-xs text-gray-400">
+<span>Delivery Fee</span>
+<span class="text-green-400">₹40.00</span>
+</div>
+
+<div class="flex justify-between text-xl font-black pt-3 border-t border-gray-800">
+<span>Total</span>
+<span>${formatCurrency(order.total)}</span>
+</div>
+
+</div>
+
+
+<button 
+onclick="window.location.href='./4042.html'"
+class="w-full btn-primary text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-pink-200">
+Reorder All Items
+</button>
+</div>
+`;
+
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      /* ============================
+   CLOSE MODAL
+============================ */
+
+      function closeModal() {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
+
+      /* ============================
+   FILTER BUTTONS
+============================ */
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterBtns.forEach((b) => {
+            b.classList.remove(
+              "bg-purple-900",
+              "text-white",
+              "border-purple-800",
+              "active",
+              "font-semibold",
+            );
+            b.classList.add(
+              "bg-white",
+              "text-gray-800",
+              "border-gray-200",
+              "font-medium",
+            );
+          });
+
+          btn.classList.add(
+            "bg-purple-900",
+            "text-white",
+            "border-purple-800",
+            "active",
+            "font-semibold",
+          );
+          btn.classList.remove(
+            "bg-white",
+            "text-gray-800",
+            "border-gray-200",
+            "font-medium",
+          );
+
+          renderOrders(btn.dataset.filter);
+        });
+      });
+
+      /* ============================
+   INITIAL LOAD
+============================ */
+
+      window.addEventListener("load", () => {
+        renderOrders();
+      });
+    </script>
+  </body>
+</html>

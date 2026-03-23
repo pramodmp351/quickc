@@ -1,0 +1,222 @@
+:root {
+  --bg-dark: #1b1b1b;
+  --text-main: #e5e5e5;
+  --text-muted: #a0a0a0;
+  --accent: #c81e61;
+  --white: #ffffff;
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+footer {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  padding: 60px 20px 20px;
+  margin-top: 50px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  text-align: center;
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 768px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    text-align: left;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-container {
+    grid-template-columns: 1.2fr 0.8fr 1fr 1.2fr;
+  }
+}
+
+/* Section Typography */
+.footer-heading {
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Section 1: Brand */
+.footer-logo {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 15px;
+  filter: brightness(0) invert(1); /* Makes dark logos visible until real src added */
+}
+
+.brand-desc {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Section 2: Quick Links */
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: var(--text-main);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition);
+  font-size: 0.95rem;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+  transform: translateX(5px);
+}
+
+.link-icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* Section 3: Address */
+.address-box {
+  font-style: normal;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.contact-info {
+  margin-top: 15px;
+}
+
+.contact-info p {
+  margin-bottom: 5px;
+}
+
+.contact-info strong {
+  color: var(--text-main);
+}
+
+/* Section 4: Newsletter & Social */
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.newsletter-form input {
+  padding: 12px 16px;
+  border-radius: 30px;
+  border: none;
+  background: var(--white);
+  color: var(--bg-dark);
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.newsletter-form button {
+  background-color: var(--accent);
+  color: var(--white);
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.newsletter-form button:hover {
+  background-color: #a3184e;
+  transform: translateY(-2px);
+}
+
+.social-icons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .social-icons {
+    justify-content: flex-start;
+  }
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.social-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-main);
+  transition: var(--transition);
+}
+
+.social-btn:hover {
+  background-color: var(--accent);
+  transform: scale(1.1);
+}
+
+.social-btn:hover svg {
+  fill: var(--white);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  margin-top: 50px;
+  padding-top: 25px;
+  border-top: 1px solid #2a2a2a;
+  text-align: center;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 767px) {
+  .footer-links a {
+    justify-content: center;
+  }
+}

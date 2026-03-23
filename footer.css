@@ -1,0 +1,238 @@
+/* CSS VARIABLES & RESET */
+:root {
+  --purple-bg: linear-gradient(180deg, #5e0d8b 0%, #3a0b5a 100%);
+  --pink-btn: #c81e61;
+  --pink-hover: #b01a55;
+  --text-white: #ffffff;
+  --input-bg: #ffffff;
+  --right-bg: #ffffff;
+  --terms-link: #ff60a8;
+  --font-main: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: #f4f4f4;
+  line-height: 1.6;
+}
+
+/* FOOTER STYLES - MOBILE FIRST */
+.stackly-footer {
+  background: var(--purple-bg);
+  color: var(--text-white);
+  padding: 60px 20px 30px 20px;
+  border-top: 4px solid var(--pink-btn);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  text-align: center;
+}
+
+/* SECTION 1: LOGO & DESC */
+.footer-brand .logo {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.1); /* Placeholder styling */
+  border-radius: 4px;
+}
+
+.footer-brand p {
+  font-size: 1rem;
+  opacity: 0.9;
+  max-width: 250px;
+  margin: 0 auto;
+}
+
+/* SECTION 2: QUICK LINKS */
+.footer-links h3,
+.footer-office h3,
+.footer-social h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-white);
+}
+
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-nav a {
+  color: var(--text-white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+.footer-nav a:hover {
+  color: var(--pink-btn);
+  transform: translateX(5px);
+}
+
+.footer-nav svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* SECTION 3: OFFICE */
+.footer-office address {
+  font-style: normal;
+  opacity: 0.9;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.contact-info {
+  margin-top: 15px;
+}
+
+.contact-info p {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* SECTION 4: SOCIAL & APPS */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.social-link {
+  background: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition);
+  color: white;
+}
+
+.social-link:hover {
+  background: var(--pink-btn);
+  transform: scale(1.15);
+}
+
+.social-link svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.app-downloads {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.download-btn {
+  background: var(--right-bg);
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 180px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+.download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background: #f9f9f9;
+}
+
+.btn-text {
+  text-align: left;
+  line-height: 1.2;
+}
+
+.btn-text small {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.btn-text span {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.download-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* FOOTER BOTTOM */
+.footer-bottom {
+  margin-top: 50px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* TABLET LAYOUT (min-width: 768px) */
+@media (min-width: 768px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    text-align: left;
+  }
+
+  .footer-brand p {
+    margin: 0;
+  }
+
+  .footer-nav a,
+  .social-icons,
+  .app-downloads {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .app-downloads {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+/* DESKTOP LAYOUT (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .footer-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .stackly-footer {
+    padding: 80px 40px 40px 40px;
+  }
+}

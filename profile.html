@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <title>User Profile | Stackly</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./nav2.css" />
+    <link rel="stylesheet" href="./footer2.css" />
+    <style>
+      :root {
+        --primary: #c81e61;
+        --primary-light: #ffebf3;
+        --secondary: #5e0d8b;
+        --accenty: #ff4d94;
+        --bg-body: #f8fafc;
+        --glass-bg: rgba(255, 255, 255, 0.85);
+        --glass-border: rgba(255, 255, 255, 0.5);
+        --text-mainy: #0f172a;
+        --text-muted: #64748b;
+        --card-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.05),
+          0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        --radius-lg: 24px;
+        --radius-md: 16px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        overflow-x: hidden;
+        background-color: var(--bg-body);
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        color: var(--text-mainy);
+        line-height: 1.6;
+      }
+
+      /* --- DESIGNER BACKGROUND --- */
+      .hero-bg {
+        background: linear-gradient(
+          135deg,
+          var(--secondary) 0%,
+          var(--primary) 100%
+        );
+        height: 280px;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+      }
+
+      .hero-bg::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 86c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM85 52c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-1 20c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-54-7c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM45 54c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM33 33c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      }
+
+      .main-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+        width: 100%;
+        position: relative;
+      }
+
+      /* --- PROFILE TOP CARD --- */
+      .profile-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--card-shadow);
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+        margin-top: 100px;
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease;
+      }
+
+      .avatar-container {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        margin: -80px auto 1.5rem;
+      }
+
+      .avatar-wrapper {
+        width: 100%;
+        height: 100%;
+        border-radius: 35% 65% 65% 35% / 35% 35% 65% 65%; /* Organic shape */
+        overflow: hidden;
+        border: 5px solid white;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        background: white;
+        animation: morph 8s ease-in-out infinite;
+      }
+
+      @keyframes morph {
+        0% {
+          border-radius: 35% 65% 65% 35% / 35% 35% 65% 65%;
+        }
+        50% {
+          border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%;
+        }
+        100% {
+          border-radius: 35% 65% 65% 35% / 35% 35% 65% 65%;
+        }
+      }
+
+      .avatar-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .profile-name {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: var(--text-mainy);
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.03em;
+      }
+
+      .profile-meta {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .badge-verified {
+        background: #e0f2fe;
+        color: #0284c7;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      /* --- ACTION BUTTONS --- */
+      .btn-edit {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        box-shadow: 0 10px 15px -3px rgba(200, 30, 97, 0.3);
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        width: 100%;
+        max-width: 200px;
+      }
+
+      .btn-edit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 20px -3px rgba(200, 30, 97, 0.4);
+      }
+
+      /* --- CONTENT GRID --- */
+      .main-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .section-card {
+        background: white;
+        border-radius: var(--radius-md);
+        box-shadow: var(--card-shadow);
+        padding: 1.75rem;
+        border: 1px solid #f1f5f9;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      .section-title {
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .section-title span {
+        background: var(--primary-light);
+        padding: 8px;
+        border-radius: 12px;
+        font-size: 1.2rem;
+      }
+
+      /* --- QUICK ACTIONS --- */
+      .actions-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .action-tile {
+        background: #ffffff;
+        border: 1px solid #f1f5f9;
+        padding: 1.25rem 0.5rem;
+        border-radius: 20px;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+      }
+
+      .action-tile:active {
+        transform: scale(0.95);
+        background: #f8fafc;
+      }
+
+      .action-icon-box {
+        width: 48px;
+        height: 48px;
+        background: var(--bg-body);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        transition: all 0.2s ease;
+      }
+
+      .action-tile:hover .action-icon-box {
+        background: var(--primary-light);
+        color: var(--primary);
+      }
+
+      .action-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #475569;
+      }
+
+      /* --- INFO ITEMS --- */
+      .details-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      .detail-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .detail-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: var(--text-muted);
+        letter-spacing: 0.05em;
+      }
+
+      .detail-value {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-mainy);
+      }
+
+      /* --- ORDERS --- */
+      .order-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 16px;
+        background: #f8fafc;
+        margin-bottom: 12px;
+        border: 1px solid transparent;
+        transition: border-color 0.2s;
+      }
+
+      .order-emoji {
+        width: 50px;
+        height: 50px;
+        background: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+
+      .order-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .order-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin-bottom: 2px;
+      }
+      .order-sub {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      .status-pill {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 800;
+      }
+
+      .delivered {
+        background: #dcfce7;
+        color: #15803d;
+      }
+      .pending {
+        background: #fef9c3;
+        color: #a16207;
+      }
+
+      /* --- LOGOUT --- */
+      .logout-container {
+        margin-top: 1rem;
+      }
+
+      .btn-logout {
+        width: 100%;
+        background: #fff;
+        color: #ef4444;
+        border: 2px solid #fee2e2;
+        padding: 14px;
+        border-radius: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-logout:active {
+        background: #fef2f2;
+      }
+
+      /* --- MODAL --- */
+      #editModal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        align-items: flex-end; /* Slide up on mobile */
+        justify-content: center;
+      }
+
+      .modal-content {
+        background: white;
+        width: 100%;
+        border-top-left-radius: 32px;
+        border-top-right-radius: 32px;
+        padding: 2.5rem 2rem;
+        box-shadow: 0 -20px 25px -5px rgba(0, 0, 0, 0.1);
+        animation: slideUp 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(100%);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+
+      .input-group {
+        margin-bottom: 1.25rem;
+      }
+      .input-group label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 14px;
+        border: 2px solid #f1f5f9;
+        border-radius: 14px;
+        font-size: 1rem;
+        font-weight: 600;
+        outline: none;
+      }
+      .input-group input:focus {
+        border-color: var(--primary);
+      }
+
+      /* --- TABLET/DESKTOP --- */
+      @media (min-width: 768px) {
+        .hero-bg {
+          height: 320px;
+          border-bottom-left-radius: 60px;
+          border-bottom-right-radius: 60px;
+        }
+        .profile-card {
+          margin-top: 120px;
+          display: flex;
+          align-items: center;
+          text-align: left;
+          padding: 3rem;
+          gap: 2.5rem;
+        }
+        .avatar-container {
+          margin: 0;
+          width: 130px;
+          height: 130px;
+        }
+        .profile-meta {
+          justify-content: flex-start;
+        }
+        .btn-edit {
+          max-width: 180px;
+        }
+
+        .main-grid {
+          display: grid;
+          grid-template-columns: 360px 1fr;
+          align-items: start;
+          gap: 2rem;
+        }
+        .details-list {
+          grid-template-columns: 1fr 1fr;
+        }
+        .actions-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        #editModal {
+          align-items: center;
+        }
+        .modal-content {
+          border-radius: 32px;
+          max-width: 500px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar" aria-label="Main Navigation">
+      <div class="logo-container">
+        <a href="./home2.html"
+          ><img src="./assets/logoog.webp" alt="Stackly Logo" class="logo-img"
+        /></a>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="./home2.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+            HOME
+          </a>
+          <div class="dropdown-content">
+            <a href="./home2.html">HOME 2</a>
+            <a href="./index.html">HOME 1</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="./history.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+              />
+            </svg>
+            ORDER HISTORY
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./dash.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+              />
+            </svg>
+            DASHBOARD
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./contact.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+              />
+            </svg>
+            CONTACT
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./profile.html" class="nav-link btn-profile">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+            PROFILE
+          </a>
+        </li>
+      </ul>
+
+      <button class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-overlay"></div>
+    <div class="mobile-nav">
+      <div class="nav-item">
+        <a href="#" class="nav-link dropdown-toggle">
+          <svg viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+          HOME
+          <svg
+            class="chevron"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </a>
+        <div class="dropdown-content">
+          <a href="./home2.html">HOME 2</a>
+          <a href="./index.html">HOME 1</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="./history.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+            />
+          </svg>
+          ORDER HISTORY
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./dash.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+            />
+          </svg>
+          DASHBOARD
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./contact.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+            />
+          </svg>
+          CONTACT
+        </a>
+      </div>
+      <a href="./profile.html" class="nav-link btn-profile">
+        <svg viewBox="0 0 24 24" fill="white">
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+        PROFILE
+      </a>
+    </div>
+    <div class="hero-bg"></div>
+
+    <div class="main-container">
+      <!-- Profile Card -->
+      <div class="profile-card">
+        <div class="avatar-container">
+          <div class="avatar-wrapper">
+            <img src="./assets/101.webp" alt="User Avatar" />
+          </div>
+        </div>
+        <div class="profile-text">
+          <h1 class="profile-name" id="display-name">Alex Thompson</h1>
+          <div class="profile-meta">
+            <span id="display-email">alex.t@example.com</span>
+            <span class="badge-verified">Verified</span>
+          </div>
+          <button class="btn-edit" onclick="toggleModal()">Edit Profile</button>
+        </div>
+      </div>
+
+      <div class="main-grid">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="section-card">
+            <div class="section-header">
+              <h2 class="section-title"><span>⚡</span> Quick Menu</h2>
+            </div>
+            <div class="actions-grid">
+              <a href="./4042.html" class="action-tile">
+                <div class="action-icon-box">📦</div>
+                <span class="action-label">Orders</span>
+              </a>
+              <a href="./4042.html" class="action-tile">
+                <div class="action-icon-box">📍</div>
+                <span class="action-label">Address</span>
+              </a>
+              <a href="./4042.html" class="action-tile">
+                <div class="action-icon-box">💳</div>
+                <span class="action-label">Payments</span>
+              </a>
+              <a href="./4042.html" class="action-tile">
+                <div class="action-icon-box">🎁</div>
+                <span class="action-label">Rewards</span>
+              </a>
+              <a href="./4042.html" class="action-tile">
+                <div class="action-icon-box">🎧</div>
+                <span class="action-label">Support</span>
+              </a>
+              <a href="./4042.html" class="action-tile">
+                <div class="action-icon-box">⚙️</div>
+                <span class="action-label">Settings</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="logout-container">
+            <button
+              class="btn-logout"
+              onclick="window.location.href = './4042.html'"
+            >
+              Sign Out
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+          <div class="section-card" style="margin-bottom: 1.5rem">
+            <div class="section-header">
+              <h2 class="section-title"><span>👤</span> Account Info</h2>
+            </div>
+            <div class="details-list">
+              <div class="detail-item">
+                <span class="detail-label">Full Name</span>
+                <span class="detail-value" id="val-name">Alex Thompson</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Phone</span>
+                <span class="detail-value" id="val-phone">+91 98765 43210</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Email</span>
+                <span class="detail-value" id="val-email"
+                  >alex.t@example.com</span
+                >
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Pincode</span>
+                <span class="detail-value" id="val-pincode">400001</span>
+              </div>
+            </div>
+            <div
+              style="
+                margin-top: 1.5rem;
+                padding-top: 1.5rem;
+                border-top: 2px dashed #f1f5f9;
+              "
+            >
+              <span class="detail-label">Primary Delivery Address</span>
+              <p class="detail-value" style="margin-top: 4px" id="val-address">
+                123 Skyline Towers, MG Road, Apt 4B, Mumbai, MH
+              </p>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header">
+              <h2 class="section-title"><span>🛒</span> Recent Orders</h2>
+              <a
+                href="./4042.html"
+                style="
+                  font-size: 0.8rem;
+                  font-weight: 700;
+                  color: var(--primary);
+                  text-decoration: none;
+                "
+                >View All</a
+              >
+            </div>
+            <div id="order-list">
+              <!-- JS Render -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal">
+      <div class="modal-content">
+        <h2
+          style="
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.03em;
+          "
+        >
+          Update Profile
+        </h2>
+        <p
+          style="
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+          "
+        >
+          Manage your public profile information
+        </p>
+
+        <div class="input-group">
+          <label>Display Name</label>
+          <input type="text" id="input-name" placeholder="John Doe" />
+        </div>
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" id="input-email" placeholder="john@example.com" />
+        </div>
+        <div class="input-group">
+          <label>Mobile Number</label>
+          <input type="text" id="input-phone" placeholder="+91 00000 00000" />
+        </div>
+
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+          "
+        >
+          <button
+            class="btn-edit"
+            style="max-width: none"
+            onclick="saveProfile()"
+          >
+            Save Changes
+          </button>
+          <button
+            class="btn-edit"
+            style="
+              max-width: none;
+              background: #f1f5f9;
+              color: #475569;
+              box-shadow: none;
+            "
+            onclick="toggleModal()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-container">
+        <!-- SECTION 1: BRAND -->
+        <div class="footer-section">
+          <a href="./home2.html">
+            <img
+              src="./assets/logoog.webp"
+              alt="Stackly Logo"
+              class="footer-logo"
+          /></a>
+          <p class="brand-desc">
+            Fast grocery delivery at your doorstep. Freshness guaranteed within
+            minutes.
+          </p>
+        </div>
+
+        <!-- SECTION 2: QUICK LINKS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="./home2.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                HOME</a
+              >
+            </li>
+            <li>
+              <a href="./history.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                ORDER HISTORY</a
+              >
+            </li>
+            <li>
+              <a href="./dash.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                DASHBOARD</a
+              >
+            </li>
+            <li>
+              <a href="./contact.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  ></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                CONTACT</a
+              >
+            </li>
+            <li>
+              <a href="./profile.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                PROFILE</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- SECTION 3: ADDRESS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Head Office</h4>
+          <address class="address-box">
+            Stackly Pvt Ltd<br />
+            4th Floor, Tech Park<br />
+            Bengaluru, Karnataka<br />
+            India – 560001
+          </address>
+          <div class="contact-info">
+            <p><strong>Phone:</strong> +91 98765 43210</p>
+            <p><strong>Email:</strong> support@stackly.com</p>
+          </div>
+        </div>
+
+        <!-- SECTION 4: NEWSLETTER + SOCIAL -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Stay Updated</h4>
+          <form class="newsletter-form" action="./4042.html">
+            <input type="email" placeholder="Your Email Address" required />
+            <button type="submit">SUBSCRIBE</button>
+          </form>
+          <div class="social-icons">
+            <a href="./4042.html" class="social-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Twitter">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                ></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM BAR -->
+      <div class="footer-bottom">
+        <p class="copyright">
+          &copy; 2026 Stackly Delivery Services Pvt Ltd. All rights reserved.
+        </p>
+      </div>
+    </footer>
+    <script src="./nav2.js"></script>
+    <script>
+      const orders = [
+        {
+          name: "Organic Blueberries (Pack of 2)",
+          date: "Today, 12:30 PM",
+          status: "Delivered",
+          img: "🫐",
+          price: "₹450",
+        },
+        {
+          name: "Whole Wheat Bread",
+          date: "Yesterday",
+          status: "Delivered",
+          img: "🍞",
+          price: "₹65",
+        },
+        {
+          name: "Fresh Greek Yogurt",
+          date: "22 Oct 2023",
+          status: "Pending",
+          img: "🥣",
+          price: "₹120",
+        },
+      ];
+
+      window.onload = () => {
+        renderOrders();
+        loadUserData();
+      };
+
+      function renderOrders() {
+        const list = document.getElementById("order-list");
+        list.innerHTML = orders
+          .map(
+            (order) => `
+                <div class="order-card">
+                    <div class="order-emoji">${order.img}</div>
+                    <div class="order-info">
+                        <div class="order-title">${order.name}</div>
+                        <div class="order-sub">${order.date} • ${order.price}</div>
+                    </div>
+                    <span class="status-pill ${order.status.toLowerCase()}">${order.status}</span>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function toggleModal() {
+        const modal = document.getElementById("editModal");
+        const isOpen = modal.style.display === "flex";
+
+        if (!isOpen) {
+          document.getElementById("input-name").value =
+            document.getElementById("val-name").innerText;
+          document.getElementById("input-email").value =
+            document.getElementById("val-email").innerText;
+          document.getElementById("input-phone").value =
+            document.getElementById("val-phone").innerText;
+          modal.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        } else {
+          modal.style.display = "none";
+          document.body.style.overflow = "auto";
+        }
+      }
+
+      function saveProfile() {
+        const n = document.getElementById("input-name").value;
+        const e = document.getElementById("input-email").value;
+        const p = document.getElementById("input-phone").value;
+
+        if (!n || !e) return;
+
+        document.getElementById("display-name").innerText = n;
+        document.getElementById("display-email").innerText = e;
+        document.getElementById("val-name").innerText = n;
+        document.getElementById("val-email").innerText = e;
+        document.getElementById("val-phone").innerText = p;
+
+        localStorage.setItem(
+          "stackly_user_v2",
+          JSON.stringify({ name: n, email: e, phone: p }),
+        );
+        toggleModal();
+      }
+
+      function loadUserData() {
+        const saved = localStorage.getItem("stackly_user_v2");
+        if (saved) {
+          const u = JSON.parse(saved);
+          document.getElementById("display-name").innerText = u.name;
+          document.getElementById("display-email").innerText = u.email;
+          document.getElementById("val-name").innerText = u.name;
+          document.getElementById("val-email").innerText = u.email;
+          document.getElementById("val-phone").innerText = u.phone;
+        }
+      }
+
+      function handleLogout() {
+        if (confirm("Are you sure you want to sign out of your account?")) {
+          localStorage.removeItem("stackly_user_v2");
+          location.reload();
+        }
+      }
+    </script>
+  </body>
+</html>

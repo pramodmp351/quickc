@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found | Stackly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-color: #f7f7fb;
+        --accent-color: #c81e61;
+        --accent-hover: #a5184f;
+        --text-main: #333333;
+        --text-soft: #666666;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 600px;
+        padding: 40px 24px;
+        text-align: center;
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .error-code {
+        font-size: 70px;
+        font-weight: 800;
+        color: var(--accent-color);
+        margin-bottom: 8px;
+        letter-spacing: -2px;
+        line-height: 1;
+      }
+
+      .heading {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .description {
+        color: var(--text-soft);
+        font-size: 16px;
+        margin-bottom: 40px;
+        max-width: 450px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .illustration-container {
+        margin-bottom: 48px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+      }
+
+      .visual-element {
+        font-size: 80px;
+        display: inline-block;
+        animation: float 3s ease-in-out infinite;
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.05));
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 28px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: var(--transition);
+        border: none;
+        font-family: inherit;
+      }
+
+      .btn-primary {
+        background-color: var(--accent-color);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(200, 30, 97, 0.25);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      .btn-outline:hover {
+        background-color: rgba(200, 30, 97, 0.05);
+        transform: translateY(-2px);
+      }
+
+      /* Desktop Adjustments */
+      @media (min-width: 768px) {
+        .error-code {
+          font-size: 120px;
+        }
+
+        .heading {
+          font-size: 32px;
+        }
+
+        .description {
+          font-size: 18px;
+        }
+
+        .button-group {
+          flex-direction: row;
+          justify-content: center;
+          gap: 16px;
+        }
+
+        .btn {
+          min-width: 180px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <!-- Error Number -->
+      <h1 class="error-code">404</h1>
+
+      <!-- Heading -->
+      <h2 class="heading">Page Not Found</h2>
+
+      <!-- Description -->
+      <p class="description">
+        The page you are looking for might have been removed, had its name
+        changed, or is temporarily unavailable.
+      </p>
+
+      <!-- Illustration Area -->
+      <div class="illustration-container">
+        <div class="visual-element">
+          <svg
+            width="120"
+            height="120"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            style="color: var(--accent-color)"
+          >
+            <path
+              d="M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1.5"
+            ></path>
+            <path d="M15.5 13a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"></path>
+            <path d="m18 18-2-2"></path>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-group">
+        <a href="./home2.html" class="btn btn-primary">Back to Home</a>
+        <button
+          onclick="window.location.href = './contact.html'"
+          class="btn btn-outline"
+        >
+          SUPPORT
+        </button>
+      </div>
+    </main>
+
+    <script>
+      /**
+       * Navigation logic
+       */
+      function goBack() {
+        // Check if there is a history to go back to
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          // Fallback to home if no history
+          window.location.href = "index.html";
+        }
+      }
+    </script>
+  </body>
+</html>

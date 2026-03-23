@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stackly - Modern Navigation</title>
+    <style>
+      :root {
+        --nav-bg: linear-gradient(180deg, #5e0d8b 0%, #3a0b5a 100%);
+        --accent: #c81e61;
+        --white: #ffffff;
+        --text-main: #333333;
+        --border-light: #eeeeee;
+        --nav-height: 70px;
+        --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+      }
+
+      body.menu-open {
+        overflow: hidden;
+      }
+
+      /* --- Navbar Base Styles --- */
+      .navbar {
+        height: var(--nav-height);
+        background: var(--nav-bg);
+        color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 5%;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .logo-img {
+        height: 40px;
+        width: auto;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+
+      /* --- Desktop Menu --- */
+      .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        list-style: none;
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--white);
+        font-size: 15px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 0;
+        transition: var(--transition);
+      }
+
+      .nav-link svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent);
+        transition: var(--transition);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .btn-profile {
+        background: var(--accent);
+        color: var(--white) !important;
+        padding: 8px 18px;
+        border-radius: 8px;
+        font-weight: 600;
+      }
+
+      .btn-profile::after {
+        display: none;
+      }
+
+      .btn-profile:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+
+      /* --- Dropdown Logic (Desktop) --- */
+      .dropdown-content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: var(--white);
+        min-width: 180px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        display: none;
+        flex-direction: column;
+        padding: 10px 0;
+        z-index: 10;
+      }
+
+      .dropdown-content a {
+        color: var(--text-main);
+        padding: 12px 20px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.2s;
+      }
+
+      .dropdown-content a:hover {
+        background: #f8f8f8;
+        color: var(--accent);
+      }
+
+      @media (min-width: 1025px) {
+        .nav-item:hover .dropdown-content {
+          display: flex;
+          animation: fadeIn 0.2s ease;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- Hamburger Button --- */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 2001; /* increased */
+        position: relative;
+      }
+
+      .hamburger span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background: var(--white);
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      /* X Animation */
+      .hamburger.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+      /* Make X visible on white menu */
+      .hamburger.active span {
+        background: #333;
+      }
+      /* --- Mobile Menu Overlay --- */
+      .mobile-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        z-index: 1050;
+      }
+
+      .mobile-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .mobile-nav {
+        position: fixed;
+        top: var(--nav-height);
+        right: -100%;
+        width: 100%;
+        height: calc(100vh - var(--nav-height));
+        background: var(--white);
+        z-index: 1500;
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        padding: 30px 30px 40px;
+        overflow-y: auto;
+      }
+
+      .mobile-nav.active {
+        right: 0;
+      }
+
+      .mobile-nav .nav-item {
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .mobile-nav .nav-link {
+        color: var(--text-main);
+        font-size: 18px;
+        padding: 20px 0;
+        justify-content: flex-start;
+        width: 100%;
+      }
+
+      .mobile-nav .nav-link svg {
+        color: #5e0d8b;
+      }
+
+      .mobile-nav .dropdown-content {
+        position: static;
+        display: none;
+        box-shadow: none;
+        padding: 0 0 20px 30px;
+        background: #fafafa;
+      }
+
+      .mobile-nav .nav-item.open .dropdown-content {
+        display: flex;
+      }
+
+      .mobile-nav .btn-profile {
+        margin-top: 30px;
+        justify-content: center;
+        font-size: 18px;
+        padding: 15px;
+      }
+
+      @media (max-width: 1024px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .hamburger {
+          display: flex;
+        }
+      }
+
+      .chevron {
+        margin-left: auto;
+        transition: transform 0.3s;
+      }
+      .nav-item.open .chevron {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar" aria-label="Main Navigation">
+      <div class="logo-container">
+        <a href="./home2.html"
+          ><img src="./assets/logoog.webp" alt="Stackly Logo" class="logo-img"
+        /></a>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="./home2.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+            HOME
+          </a>
+          <div class="dropdown-content">
+            <a href="./home2.html">HOME 2</a>
+            <a href="./index.html">HOME 1</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="./history.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+              />
+            </svg>
+            ORDER HISTORY
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./dash.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+              />
+            </svg>
+            DASHBOARD
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./contact.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+              />
+            </svg>
+            CONTACT
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./profile.html" class="nav-link btn-profile">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+            PROFILE
+          </a>
+        </li>
+      </ul>
+
+      <button class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-overlay"></div>
+    <div class="mobile-nav">
+      <div class="nav-item">
+        <a href="#" class="nav-link dropdown-toggle">
+          <svg viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+          HOME
+          <svg
+            class="chevron"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </a>
+        <div class="dropdown-content">
+          <a href="./home2.html">HOME 2</a>
+          <a href="./index.html">HOME 1</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="./history.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+            />
+          </svg>
+          ORDER HISTORY
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./dash.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+            />
+          </svg>
+          DASHBOARD
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./contact.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+            />
+          </svg>
+          CONTACT
+        </a>
+      </div>
+      <a href="./profile.html" class="nav-link btn-profile">
+        <svg viewBox="0 0 24 24" fill="white">
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+        PROFILE
+      </a>
+    </div>
+
+    <script>
+      const hamburger = document.querySelector(".hamburger");
+      const mobileNav = document.querySelector(".mobile-nav");
+      const overlay = document.querySelector(".mobile-overlay");
+      const body = document.body;
+      const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+      const mobileLinks = document.querySelectorAll(
+        ".mobile-nav .nav-link:not(.dropdown-toggle)",
+      );
+      const subLinks = document.querySelectorAll(
+        ".mobile-nav .dropdown-content a",
+      );
+
+      function toggleMenu() {
+        const isOpen = hamburger.classList.toggle("active");
+        mobileNav.classList.toggle("active");
+        overlay.classList.toggle("active");
+        body.classList.toggle("menu-open");
+        hamburger.setAttribute("aria-expanded", isOpen);
+      }
+
+      function closeMenu() {
+        hamburger.classList.remove("active");
+        mobileNav.classList.remove("active");
+        overlay.classList.remove("active");
+        body.classList.remove("menu-open");
+        hamburger.setAttribute("aria-expanded", "false");
+      }
+
+      hamburger.addEventListener("click", toggleMenu);
+      overlay.addEventListener("click", closeMenu);
+
+      dropdownToggles.forEach((toggle) => {
+        toggle.addEventListener("click", (e) => {
+          e.preventDefault();
+          const parent = toggle.closest(".nav-item");
+          parent.classList.toggle("open");
+        });
+      });
+
+      [...mobileLinks, ...subLinks].forEach((link) => {
+        link.addEventListener("click", closeMenu);
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 1024 && body.classList.contains("menu-open")) {
+          closeMenu();
+        }
+      });
+    </script>
+  </body>
+</html>

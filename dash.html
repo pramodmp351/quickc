@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Stackly</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #5e0d8b 0%, #3a0b5a 100%);
+        --accent-color: #c81e61;
+        --accent-hover: #b01a55;
+        --bg-main: #f8f9fb;
+      }
+
+      body {
+        background-color: var(--bg-main);
+        font-family: "Inter", sans-serif;
+        color: #1a1a1a;
+      }
+
+      .btn-primary {
+        background-color: var(--accent-color);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--accent-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(200, 30, 97, 0.3);
+      }
+
+      .admin-card {
+        background: white;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .admin-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+      }
+
+      .stat-icon {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .badge {
+        padding: 4px 10px;
+        border-radius: 9999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+      }
+
+      .status-delivered {
+        background: #ecfdf5;
+        color: #059669;
+      }
+      .status-processing {
+        background: #fffbeb;
+        color: #d97706;
+      }
+      .status-cancelled {
+        background: #fef2f2;
+        color: #dc2626;
+      }
+
+      .priority-high {
+        color: #dc2626;
+        border-left: 3px solid #dc2626;
+      }
+      .priority-medium {
+        color: #d97706;
+        border-left: 3px solid #d97706;
+      }
+      .priority-low {
+        color: #059669;
+        border-left: 3px solid #059669;
+      }
+
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <div class="max-w-[1200px] mx-auto px-4 py-6 sm:py-10">
+      <!-- Header -->
+      <header
+        class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10"
+      >
+        <div>
+          <h1
+            class="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900"
+          >
+            Stackly Dashboard
+          </h1>
+          <p class="text-gray-500 text-sm mt-1">
+            Manage orders and customer activity
+          </p>
+        </div>
+        <a
+          href="./home2.html"
+          class="btn-primary text-white px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2"
+        >
+          <i class="fas fa-arrow-left"></i>
+          Back to Home
+        </a>
+      </header>
+
+      <!-- Stats Section -->
+      <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
+        <div class="admin-card p-5">
+          <div class="flex justify-between items-start mb-4">
+            <div
+              class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-shopping-cart stat-icon text-xl"></i>
+            </div>
+            <span class="text-green-500 text-xs font-bold">+12%</span>
+          </div>
+          <h3 class="text-2xl font-black text-gray-900">1,245</h3>
+          <p
+            class="text-gray-500 text-xs font-medium uppercase tracking-wider mt-1"
+          >
+            Total Orders
+          </p>
+        </div>
+
+        <div class="admin-card p-5">
+          <div class="flex justify-between items-start mb-4">
+            <div
+              class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-indian-rupee-sign stat-icon text-xl"></i>
+            </div>
+            <span class="text-green-500 text-xs font-bold">+8%</span>
+          </div>
+          <h3 class="text-2xl font-black text-gray-900">₹2,45,000</h3>
+          <p
+            class="text-gray-500 text-xs font-medium uppercase tracking-wider mt-1"
+          >
+            Total Revenue
+          </p>
+        </div>
+
+        <div class="admin-card p-5">
+          <div class="flex justify-between items-start mb-4">
+            <div
+              class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-users stat-icon text-xl"></i>
+            </div>
+            <span class="text-blue-500 text-xs font-bold">842</span>
+          </div>
+          <h3 class="text-2xl font-black text-gray-900">3,120</h3>
+          <p
+            class="text-gray-500 text-xs font-medium uppercase tracking-wider mt-1"
+          >
+            Active Users
+          </p>
+        </div>
+
+        <div class="admin-card p-5">
+          <div class="flex justify-between items-start mb-4">
+            <div
+              class="w-10 h-10 bg-purple-50 rounded-lg flex items-center justify-center"
+            >
+              <i class="fas fa-truck-fast stat-icon text-xl"></i>
+            </div>
+            <span class="text-orange-500 text-xs font-bold">Pending</span>
+          </div>
+          <h3 class="text-2xl font-black text-gray-900">42</h3>
+          <p
+            class="text-gray-500 text-xs font-medium uppercase tracking-wider mt-1"
+          >
+            Deliveries
+          </p>
+        </div>
+      </section>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column: Orders -->
+        <div class="lg:col-span-2 space-y-8">
+          <div class="admin-card overflow-hidden">
+            <div
+              class="p-5 border-b border-gray-50 flex justify-between items-center"
+            >
+              <h2 class="font-bold text-gray-800">Recent Orders</h2>
+              <button
+                onclick="window.location.href = './4042.html'"
+                class="text-xs text-purple-700 font-bold hover:underline"
+              >
+                View All
+              </button>
+            </div>
+
+            <!-- Desktop Table -->
+            <div class="hidden sm:block overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr
+                    class="bg-gray-50 text-[10px] uppercase tracking-widest text-gray-400 font-bold"
+                  >
+                    <th class="px-6 py-4">Order ID</th>
+                    <th class="px-6 py-4">Customer</th>
+                    <th class="px-6 py-4">Total</th>
+                    <th class="px-6 py-4">Status</th>
+                    <th class="px-6 py-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="orders-table-body"
+                  class="divide-y divide-gray-50 text-sm"
+                >
+                  <!-- JS Injection -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Mobile Cards -->
+            <div
+              id="orders-mobile-list"
+              class="sm:hidden divide-y divide-gray-50"
+            >
+              <!-- JS Injection -->
+            </div>
+          </div>
+
+          <!-- Support Tickets -->
+          <div class="admin-card">
+            <div
+              class="p-5 border-b border-gray-50 flex justify-between items-center"
+            >
+              <h2 class="font-bold text-gray-800">Support Tickets</h2>
+              <span
+                class="bg-red-100 text-red-600 text-[10px] px-2 py-1 rounded font-black"
+                >3 URGENT</span
+              >
+            </div>
+            <div id="tickets-list" class="p-5 space-y-4">
+              <!-- JS Injection -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Messages -->
+        <div class="space-y-8">
+          <div class="admin-card">
+            <div
+              class="p-5 border-b border-gray-50 flex justify-between items-center"
+            >
+              <h2 class="font-bold text-gray-800">Recent Messages</h2>
+              <i class="far fa-comment-dots text-gray-300"></i>
+            </div>
+            <div id="messages-list" class="p-5 space-y-6">
+              <!-- JS Injection -->
+            </div>
+            <div class="p-4 bg-gray-50 text-center">
+              <button
+                onclick="window.location.href = './4042.html'"
+                class="text-xs font-bold text-gray-500 hover:text-purple-700 transition-colors uppercase tracking-widest"
+              >
+                Go to Inbox
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div
+            class="admin-card p-5 bg-gradient-to-br from-purple-900 to-indigo-900 text-white border-0"
+          >
+            <h3 class="font-bold mb-4">Quick Actions</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <button
+                onclick="window.location.href = './4042.html'"
+                class="bg-white/10 hover:bg-white/20 p-3 rounded-xl text-center transition-all"
+              >
+                <i class="fas fa-plus mb-2 block"></i>
+                <span class="text-[10px] font-bold uppercase tracking-wider"
+                  >Add Item</span
+                >
+              </button>
+              <button
+                onclick="window.location.href = './4042.html'"
+                class="bg-white/10 hover:bg-white/20 p-3 rounded-xl text-center transition-all"
+              >
+                <i class="fas fa-bullhorn mb-2 block"></i>
+                <span class="text-[10px] font-bold uppercase tracking-wider"
+                  >Campaign</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const formatINR = (amt) => {
+        return new Intl.NumberFormat("en-IN", {
+          style: "currency",
+          currency: "INR",
+          maximumFractionDigits: 0,
+        }).format(amt);
+      };
+
+      const orders = [
+        {
+          id: "STK-7712",
+          customer: "Rahul Sharma",
+          items: 4,
+          total: 1240,
+          status: "Delivered",
+        },
+        {
+          id: "STK-7713",
+          customer: "Ananya Iyer",
+          items: 2,
+          total: 450,
+          status: "Processing",
+        },
+        {
+          id: "STK-7714",
+          customer: "Vikram Singh",
+          items: 12,
+          total: 4890,
+          status: "Delivered",
+        },
+        {
+          id: "STK-7715",
+          customer: "Priya Patel",
+          items: 1,
+          total: 89,
+          status: "Cancelled",
+        },
+        {
+          id: "STK-7716",
+          customer: "Siddharth M.",
+          items: 5,
+          total: 2100,
+          status: "Processing",
+        },
+      ];
+
+      const messages = [
+        {
+          user: "Arjun K.",
+          text: "Is the organic milk back in stock?",
+          time: "2m ago",
+          avatar: "./assets/100.webp",
+        },
+        {
+          user: "Sneha L.",
+          text: "My order is delayed by 20 mins.",
+          time: "15m ago",
+          avatar: "./assets/101.webp",
+        },
+        {
+          user: "Amit V.",
+          text: "The avocado was perfectly ripe, thanks!",
+          time: "1h ago",
+          avatar: "./assets/103.webp",
+        },
+      ];
+
+      const tickets = [
+        {
+          id: "TKT-102",
+          issue: "Payment Failed but Amount Deducted",
+          priority: "High",
+          status: "Open",
+        },
+        {
+          id: "TKT-105",
+          issue: "Update Delivery Address",
+          priority: "Medium",
+          status: "In Progress",
+        },
+        {
+          id: "TKT-109",
+          issue: "Refund Request: Damaged Item",
+          priority: "Low",
+          status: "Resolved",
+        },
+      ];
+
+      function initDashboard() {
+        // Render Table
+        const tableBody = document.getElementById("orders-table-body");
+        const mobileList = document.getElementById("orders-mobile-list");
+
+        orders.forEach((order) => {
+          const badgeClass = `status-${order.status.toLowerCase()}`;
+
+          // Table Row
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-gray-50/50 transition-colors";
+          tr.innerHTML = `
+                    <td class="px-6 py-4 font-mono text-xs text-purple-700 font-bold">${order.id}</td>
+                    <td class="px-6 py-4 font-medium">${order.customer}</td>
+                    <td class="px-6 py-4 font-bold text-gray-900">${formatINR(order.total)}</td>
+                    <td class="px-6 py-4"><span class="badge ${badgeClass}">${order.status}</span></td>
+                    <td class="px-6 py-4 text-right">
+                        <button class="text-gray-400 hover:text-purple-600 p-2"><i class="fas fa-ellipsis-v"></i></button>
+                    </td>
+                `;
+          tableBody.appendChild(tr);
+
+          // Mobile Card
+          const mCard = document.createElement("div");
+          mCard.className = "p-4 flex justify-between items-center";
+          mCard.innerHTML = `
+                    <div>
+                        <p class="text-[10px] font-mono text-purple-700 font-bold">${order.id}</p>
+                        <h4 class="font-bold text-sm">${order.customer}</h4>
+                        <p class="text-xs text-gray-500">${order.items} items • ${formatINR(order.total)}</p>
+                    </div>
+                    <span class="badge ${badgeClass}">${order.status}</span>
+                `;
+          mobileList.appendChild(mCard);
+        });
+
+        // Render Messages
+        const messagesContainer = document.getElementById("messages-list");
+        messages.forEach((msg) => {
+          const div = document.createElement("div");
+          div.className = "flex gap-3 items-start group";
+          div.innerHTML = `
+                    <img src="${msg.avatar}" class="w-10 h-10 rounded-full border-2 border-white shadow-sm flex-shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-center mb-0.5">
+                            <h4 class="text-xs font-bold text-gray-900">${msg.user}</h4>
+                            <span class="text-[10px] text-gray-400">${msg.time}</span>
+                        </div>
+                        <p class="text-xs text-gray-500 truncate mb-2">${msg.text}</p>
+                       
+                    </div>
+                `;
+          messagesContainer.appendChild(div);
+        });
+
+        // Render Tickets
+        const ticketsContainer = document.getElementById("tickets-list");
+        tickets.forEach((tkt) => {
+          const priorityClass = `priority-${tkt.priority.toLowerCase()}`;
+          const div = document.createElement("div");
+          div.className = `p-4 bg-gray-50 rounded-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 ${priorityClass}`;
+          div.innerHTML = `
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-[10px] font-black uppercase text-gray-400">${tkt.id}</span>
+                            <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider">${tkt.priority} Priority</span>
+                        </div>
+                        <h4 class="text-sm font-semibold text-gray-800">${tkt.issue}</h4>
+                    </div>
+                    <button  onclick="window.location.href = './4042.html'" class="w-full sm:w-auto px-4 py-2 bg-white border border-gray-200 text-[10px] font-bold uppercase tracking-wider rounded-lg hover:bg-gray-100 transition-colors">
+                        Resolve
+                    </button>
+                `;
+          ticketsContainer.appendChild(div);
+        });
+      }
+
+      window.onload = initDashboard;
+    </script>
+  </body>
+</html>

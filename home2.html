@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stackly | Fresh Grocery Delivery</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./nav2.css" />
+    <link rel="stylesheet" href="./footer2.css" />
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #5e0d8b, #3a0b5a);
+        --primary-pink: #c81e61;
+        --pink-hover: #b01a55;
+        --bg-color: #fcfcfc;
+        --card-bg: #ffffff;
+        --text-mainy: #1f1f1f;
+        --text-muted: #a0a0a0;
+        --border-radius: 12px;
+        --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --container-max: 1200px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        line-height: 1.5;
+        padding-bottom: 40px;
+      } */
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-mainy);
+        line-height: 1.5;
+
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      main {
+        flex: 1;
+      }
+
+      footer {
+        width: 100%;
+      }
+      .container {
+        max-width: var(--container-max);
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+
+      /* --- HERO SLIDER --- */
+      .hero-section {
+        padding-top: 16px;
+        margin-bottom: 32px;
+      }
+
+      .slider-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 7;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: var(--shadow-soft);
+        background: #eee;
+      }
+
+      .slider-container {
+        display: flex;
+        width: 400%;
+        height: 100%;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .slide {
+        width: 25%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        padding: 0 10%;
+        color: white;
+        position: relative;
+      }
+
+      .slide::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.4) 0%,
+          rgba(0, 0, 0, 0) 60%
+        );
+      }
+
+      .slide-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .slide-content h2 {
+        font-size: clamp(1.2rem, 4vw, 2.5rem);
+        font-weight: 800;
+        margin-bottom: 8px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .slider-dots {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .dot.active {
+        background: white;
+        width: 20px;
+        border-radius: 4px;
+      }
+
+      /* --- SECTION HEADERS --- */
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        margin-top: 32px;
+      }
+
+      .section-header h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+      }
+
+      .see-more {
+        color: var(--primary-pink);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      /* --- PRODUCT GRID --- */
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      @media (min-width: 640px) {
+        .product-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .product-grid {
+          grid-template-columns: repeat(5, 1fr);
+        }
+      }
+
+      /* --- PRODUCT CARD --- */
+      .product-card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 12px;
+        border: 1px solid #f0f0f0;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      .img-container {
+        width: 100%;
+        aspect-ratio: 1/1;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .img-container img {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+      }
+
+      .delivery-tag {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #fff;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        border: 1px solid #eee;
+      }
+
+      .delivery-tag span {
+        color: #259141; /* Green timer color */
+      }
+
+      .product-info h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-mainy);
+        margin-bottom: 4px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        height: 2.6rem;
+      }
+
+      .product-weight {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+      }
+
+      .card-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .price {
+        font-weight: 700;
+        font-size: 1rem;
+      }
+
+      .add-btn {
+        background: white;
+        border: 1px solid var(--primary-pink);
+        color: var(--primary-pink);
+        padding: 6px 16px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+      }
+
+      .add-btn.added {
+        background: var(--primary-pink);
+        color: white;
+      }
+
+      .add-btn:active {
+        transform: scale(0.95);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar" aria-label="Main Navigation">
+      <div class="logo-container">
+        <a href="./home2.html"
+          ><img src="./assets/logoog.webp" alt="Stackly Logo" class="logo-img"
+        /></a>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="./home2.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+            HOME
+          </a>
+          <div class="dropdown-content">
+            <a href="./home2.html">HOME 2</a>
+            <a href="./index.html">HOME 1</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="./history.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+              />
+            </svg>
+            ORDER HISTORY
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./dash.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+              />
+            </svg>
+            DASHBOARD
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./contact.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+              />
+            </svg>
+            CONTACT
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./profile.html" class="nav-link btn-profile">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+            PROFILE
+          </a>
+        </li>
+      </ul>
+
+      <button class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-overlay"></div>
+    <div class="mobile-nav">
+      <div class="nav-item">
+        <a href="#" class="nav-link dropdown-toggle">
+          <svg viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+          HOME
+          <svg
+            class="chevron"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </a>
+        <div class="dropdown-content">
+          <a href="./home2.html">HOME 2</a>
+          <a href="./index.html">HOME 1</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="./history.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+            />
+          </svg>
+          ORDER HISTORY
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./dash.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+            />
+          </svg>
+          DASHBOARD
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./contact.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+            />
+          </svg>
+          CONTACT
+        </a>
+      </div>
+      <a href="./profile.html" class="nav-link btn-profile">
+        <svg viewBox="0 0 24 24" fill="white">
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+        PROFILE
+      </a>
+    </div>
+    <main class="container">
+      <!-- Hero Slider -->
+      <section class="hero-section">
+        <div class="slider-wrapper">
+          <div class="slider-container" id="slider">
+            <div
+              class="slide"
+              style="
+                background-color: #5e0d8b;
+                background-image: url(&quot;./assets/home/home1.webp&quot;);
+              "
+            >
+              <!-- <div class="slide-content">
+                <h2>Kitchen Essentials</h2>
+                <p>Upgrade your cooking game</p>
+              </div> -->
+            </div>
+            <div
+              class="slide"
+              style="
+                background-color: #3a0b5a;
+                background-image: url(&quot;./assets/home/home2.webp&quot;);
+              "
+            >
+              <!-- <div class="slide-content">
+                <h2>Personal Care</h2>
+                <p>Daily glow, delivered fast</p>
+              </div> -->
+            </div>
+            <div
+              class="slide"
+              style="
+                background-color: #c81e61;
+                background-image: url(&quot;./assets/home/home3.webp&quot;);
+              "
+            >
+              <!-- <div class="slide-content">
+                <h2>Pharmacy Store</h2>
+                <p>Wellness at your doorstep</p>
+              </div> -->
+            </div>
+            <div
+              class="slide"
+              style="
+                background-color: #1f1f1f;
+                background-image: url(&quot;./assets/home/home4.webp&quot;);
+              "
+            >
+              <!-- <div class="slide-content">
+                <h2>Premium Stationery</h2>
+                <p>Organize your creative space</p>
+              </div> -->
+            </div>
+          </div>
+          <div class="slider-dots" id="dots"></div>
+        </div>
+      </section>
+
+      <!-- Product Sections -->
+      <div id="product-sections"></div>
+    </main>
+    <footer>
+      <div class="footer-container">
+        <!-- SECTION 1: BRAND -->
+        <div class="footer-section">
+          <a href="./home2.html">
+            <img
+              src="./assets/logoog.webp"
+              alt="Stackly Logo"
+              class="footer-logo"
+          /></a>
+          <p class="brand-desc">
+            Fast grocery delivery at your doorstep. Freshness guaranteed within
+            minutes.
+          </p>
+        </div>
+
+        <!-- SECTION 2: QUICK LINKS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="./home2.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                HOME</a
+              >
+            </li>
+            <li>
+              <a href="./history.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                ORDER HISTORY</a
+              >
+            </li>
+            <li>
+              <a href="./dash.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                DASHBOARD</a
+              >
+            </li>
+            <li>
+              <a href="./contact.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  ></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                CONTACT</a
+              >
+            </li>
+            <li>
+              <a href="./profile.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                PROFILE</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- SECTION 3: ADDRESS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Head Office</h4>
+          <address class="address-box">
+            Stackly Pvt Ltd<br />
+            4th Floor, Tech Park<br />
+            Bengaluru, Karnataka<br />
+            India – 560001
+          </address>
+          <div class="contact-info">
+            <p><strong>Phone:</strong> +91 98765 43210</p>
+            <p><strong>Email:</strong> support@stackly.com</p>
+          </div>
+        </div>
+
+        <!-- SECTION 4: NEWSLETTER + SOCIAL -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Stay Updated</h4>
+          <form class="newsletter-form" action="./4042.html">
+            <input type="email" placeholder="Your Email Address" required />
+            <button type="submit">SUBSCRIBE</button>
+          </form>
+          <div class="social-icons">
+            <a href="./4042.html" class="social-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Twitter">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                ></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM BAR -->
+      <div class="footer-bottom">
+        <p class="copyright">
+          &copy; 2026 Stackly Delivery Services Pvt Ltd. All rights reserved.
+        </p>
+      </div>
+    </footer>
+    <script src="./nav2.js"></script>
+    <script>
+      // --- DATA ---
+      const productsData = [
+        {
+          category: "Kitchen Equip",
+          products: [
+            {
+              id: "k1",
+              name: "Non-stick Frying Pan",
+              weight: "24cm",
+              price: 899,
+              image: "./assets/home/h21.webp",
+            },
+            {
+              id: "k2",
+              name: "Stainless Steel Knife Set",
+              weight: "3 Pieces",
+              price: 1250,
+              image: "./assets/home/h22.webp",
+            },
+            {
+              id: "k3",
+              name: "Wooden Chopping Board",
+              weight: "Large",
+              price: 450,
+              image: "./assets/home/h23.webp",
+            },
+            {
+              id: "k4",
+              name: "Electric Kettle",
+              weight: "1.5L",
+              price: 1800,
+              image: "./assets/home/h24.webp",
+            },
+            {
+              id: "k5",
+              name: "Storage Container",
+              weight: "Pack of 4",
+              price: 600,
+              image: "./assets/home/h25.webp",
+            },
+          ],
+        },
+        {
+          category: "Personal Care",
+          products: [
+            {
+              id: "p1",
+              name: "Deep Clean Face Wash",
+              weight: "150ml",
+              price: 299,
+              image: "./assets/home/h31.webp",
+            },
+            {
+              id: "p2",
+              name: "Nourishing Shampoo",
+              weight: "400ml",
+              price: 450,
+              image: "./assets/home/h32.webp",
+            },
+            {
+              id: "p3",
+              name: "Hydrating Body Lotion",
+              weight: "200ml",
+              price: 350,
+              image: "./assets/home/h33.webp",
+            },
+            {
+              id: "p4",
+              name: "Whitening Toothpaste",
+              weight: "150g",
+              price: 120,
+              image: "./assets/home/h34.webp",
+            },
+            {
+              id: "p5",
+              name: "Cooling Deodorant",
+              weight: "150ml",
+              price: 199,
+              image: "./assets/home/h35.webp",
+            },
+          ],
+        },
+        {
+          category: "Pharma",
+          products: [
+            {
+              id: "m1",
+              name: "Paracetamol Tablets",
+              weight: "10 Tabs",
+              price: 45,
+              image: "./assets/home/h41.webp",
+            },
+            {
+              id: "m2",
+              name: "Vitamin C Tablets",
+              weight: "20 Tabs",
+              price: 180,
+              image: "./assets/home/h42.webp",
+            },
+            {
+              id: "m3",
+              name: "Hand Sanitizer",
+              weight: "100ml",
+              price: 50,
+              image: "./assets/home/h43.webp",
+            },
+            {
+              id: "m4",
+              name: "Antiseptic Liquid",
+              weight: "250ml",
+              price: 110,
+              image: "./assets/home/h44.webp",
+            },
+            {
+              id: "m5",
+              name: "Digital Thermometer",
+              weight: "1 Unit",
+              price: 250,
+              image: "./assets/home/h45.webp",
+            },
+          ],
+        },
+        {
+          category: "Stationery",
+          products: [
+            {
+              id: "s1",
+              name: "A5 Spiral Notebook",
+              weight: "160 Pages",
+              price: 150,
+              image: "./assets/home/h51.webp",
+            },
+            {
+              id: "s2",
+              name: "Blue Ball Pens Pack",
+              weight: "Pack of 10",
+              price: 100,
+              image: "./assets/home/h52.webp",
+            },
+            {
+              id: "s3",
+              name: "Neon Highlighter Set",
+              weight: "5 Colors",
+              price: 200,
+              image: "./assets/home/h53.webp",
+            },
+            {
+              id: "s4",
+              name: "Yellow Sticky Notes",
+              weight: "100 Sheets",
+              price: 60,
+              image: "./assets/home/h54.webp",
+            },
+            {
+              id: "s5",
+              name: "Geometry Box",
+              weight: "Premium",
+              price: 350,
+              image: "./assets/home/h55.webp",
+            },
+          ],
+        },
+      ];
+
+      // --- SLIDER LOGIC ---
+      let currentSlide = 0;
+      const totalSlides = 4;
+      const slider = document.getElementById("slider");
+      const dotsContainer = document.getElementById("dots");
+
+      function initSlider() {
+        for (let i = 0; i < totalSlides; i++) {
+          const dot = document.createElement("div");
+          dot.className = `dot ${i === 0 ? "active" : ""}`;
+          dot.onclick = () => goToSlide(i);
+          dotsContainer.appendChild(dot);
+        }
+        setInterval(nextSlide, 3000);
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        updateSlider();
+      }
+
+      function goToSlide(index) {
+        currentSlide = index;
+        updateSlider();
+      }
+
+      function updateSlider() {
+        slider.style.transform = `translateX(-${currentSlide * 25}%)`;
+        const dots = document.querySelectorAll(".dot");
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === currentSlide);
+        });
+      }
+
+      // --- CART LOGIC ---
+      const CART_KEY = "stackly_cart";
+
+      function getCart() {
+        const data = localStorage.getItem(CART_KEY);
+        return data ? JSON.parse(data) : [];
+      }
+
+      function saveCart(cart) {
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      }
+
+      function addToCart(product) {
+        const cart = getCart();
+        const exists = cart.find((item) => item.id === product.id);
+        if (!exists) {
+          cart.push({ ...product, quantity: 1 });
+          saveCart(cart);
+        }
+      }
+
+      function handleButtonClick(e, product) {
+        const btn = e.target;
+        const isInCart = btn.classList.contains("added");
+
+        if (!isInCart) {
+          addToCart(product);
+          btn.classList.add("added");
+          btn.textContent = "Cart";
+        } else {
+          // Second click: redirect
+          window.location.href = "cart.html";
+        }
+      }
+
+      // --- RENDERING ---
+      function renderPage() {
+        const container = document.getElementById("product-sections");
+        container.innerHTML = "";
+
+        productsData.forEach((section) => {
+          const sectionEl = document.createElement("section");
+
+          sectionEl.innerHTML = `
+      <div class="section-header">
+        <h3>${section.category}</h3>
+        <a href="#" class="see-more">See More</a>
+      </div>
+
+      <div class="product-grid">
+        ${section.products
+          .map(
+            (p) => `
+          <div class="product-card">
+            
+            <div class="delivery-tag">
+              <span>⏱</span> 14 MINS
+            </div>
+
+           <div class="img-container">
+  ${
+    p.image.startsWith("./") || p.image.startsWith("http")
+      ? `<img src="${p.image}" alt="${p.name}">`
+      : `<div style="font-size:4rem;">${p.image}</div>`
+  }
+</div>
+
+            <div class="product-info">
+              <h4>${p.name}</h4>
+              <p class="product-weight">${p.weight}</p>
+            </div>
+
+            <div class="card-footer">
+              <span class="price">₹${p.price}</span>
+
+              <button 
+                class="add-btn"
+                onclick='handleButtonClick(event, ${JSON.stringify(p)})'>
+                ADD
+              </button>
+
+            </div>
+
+          </div>
+        `,
+          )
+          .join("")}
+      </div>
+    `;
+
+          container.appendChild(sectionEl);
+        });
+      }
+
+      // Initialize
+      window.onload = () => {
+        initSlider();
+        renderPage();
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Stackly</title>
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #5e0d8b, #3a0b5a);
+        --accent-pink: #c81e61;
+        --accent-pink-hover: #b01a55;
+        --bg-light: #f4f4f4;
+        --text-white: #ffffff;
+        --input-bg: #f0f0f0;
+        --border-radius: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-light);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .page-content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+      }
+      /* Main Container */
+      .contact-card {
+        background-color: white;
+        width: 100%;
+        max-width: 900px;
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Left Panel - Purple Form */
+      .form-panel {
+        background: var(--primary-gradient);
+        color: var(--text-white);
+        padding: 40px;
+        flex: 1;
+      }
+
+      .logo {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        display: block;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+      }
+
+      p.subtitle {
+        font-size: 1rem;
+        opacity: 0.9;
+        margin-bottom: 30px;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .input-group input,
+      .input-group textarea {
+        width: 100%;
+        padding: 14px 20px;
+        border-radius: 50px; /* Pill shape */
+        border: 2px solid transparent;
+        background-color: var(--input-bg);
+        outline: none;
+        font-size: 0.95rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .input-group textarea {
+        border-radius: 20px;
+        resize: none;
+        height: 100px;
+      }
+
+      .input-group input:focus,
+      .input-group textarea:focus {
+        border-color: var(--accent-pink);
+      }
+
+      .submit-btn {
+        background-color: var(--accent-pink);
+        color: white;
+        border: none;
+        padding: 15px;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.3s ease,
+          transform 0.2s ease;
+        margin-top: 10px;
+      }
+
+      .submit-btn:hover {
+        background-color: var(--accent-pink-hover);
+        transform: translateY(-1px);
+      }
+
+      .footer-text {
+        font-size: 0.75rem;
+        text-align: center;
+        margin-top: 20px;
+        opacity: 0.8;
+      }
+
+      .footer-text a {
+        color: white;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+
+      /* Right Panel - White App Section */
+      .app-panel {
+        background-color: white;
+        padding: 40px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        color: #333;
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+
+      .app-illustration {
+        margin-bottom: 25px;
+        width: 120px;
+        height: auto;
+      }
+
+      .app-panel h3 {
+        color: #3a0b5a;
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+        line-height: 1.3;
+      }
+
+      .app-panel p {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 30px;
+      }
+
+      .store-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 200px;
+      }
+
+      .store-badge {
+        width: 100%;
+        transition: transform 0.2s ease;
+      }
+
+      .store-badge:hover {
+        transform: scale(1.05);
+      }
+
+      /* Desktop Layout */
+      @media (min-width: 768px) {
+        .contact-card {
+          flex-direction: row;
+        }
+        .form-panel {
+          padding: 50px;
+        }
+      }
+    </style>
+    <link rel="stylesheet" href="./nav2.css" />
+    <link rel="stylesheet" href="./footer2.css" />
+  </head>
+  <body>
+    <nav class="navbar" aria-label="Main Navigation">
+      <div class="logo-container">
+        <a href="./home2.html"
+          ><img src="./assets/logoog.webp" alt="Stackly Logo" class="logo-img"
+        /></a>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="./home2.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+            </svg>
+            HOME
+          </a>
+          <div class="dropdown-content">
+            <a href="./home2.html">HOME 2</a>
+            <a href="./index.html">HOME 1</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="./history.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+              />
+            </svg>
+            ORDER HISTORY
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./dash.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+              />
+            </svg>
+            DASHBOARD
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./contact.html" class="nav-link">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+              />
+            </svg>
+            CONTACT
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="./profile.html" class="nav-link btn-profile">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path
+                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+              />
+            </svg>
+            PROFILE
+          </a>
+        </li>
+      </ul>
+
+      <button class="hamburger" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-overlay"></div>
+    <div class="mobile-nav">
+      <div class="nav-item">
+        <a href="#" class="nav-link dropdown-toggle">
+          <svg viewBox="0 0 24 24">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+          HOME
+          <svg
+            class="chevron"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </a>
+        <div class="dropdown-content">
+          <a href="./home2.html">HOME 2</a>
+          <a href="./index.html">HOME 1</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="./history.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M13 3H6v18h12V7l-5-4zm3 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V4.5L16.5 9H13z"
+            />
+          </svg>
+          ORDER HISTORY
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./dash.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+            />
+          </svg>
+          DASHBOARD
+        </a>
+      </div>
+      <div class="nav-item">
+        <a href="./contact.html" class="nav-link">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+            />
+          </svg>
+          CONTACT
+        </a>
+      </div>
+      <a href="./profile.html" class="nav-link btn-profile">
+        <svg viewBox="0 0 24 24" fill="white">
+          <path
+            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+          />
+        </svg>
+        PROFILE
+      </a>
+    </div>
+    <main class="page-content">
+      <div class="contact-card">
+        <button class="close-btn" onclick="alert('Close clicked')">
+          &times;
+        </button>
+
+        <div class="form-panel">
+          <span class="logo">STACKLY</span>
+          <h2>Get in Touch with Stackly</h2>
+          <p class="subtitle">We’re here to help you anytime.</p>
+
+          <form class="contact-form" id="contactForm" action="./4042.html">
+            <div class="input-group">
+              <input type="text" placeholder="Full Name" required />
+            </div>
+            <div class="input-group">
+              <input type="email" placeholder="Email Address" required />
+            </div>
+            <div class="input-group">
+              <input type="tel" placeholder="Phone Number" required />
+            </div>
+            <div class="input-group">
+              <textarea placeholder="How can we help?"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+
+          <p class="footer-text">
+            By submitting you agree to our <br />
+            <a href="./4042.html">Terms of Service</a> &
+            <a href="./4042.html">Privacy Policy</a>
+          </p>
+        </div>
+
+        <div class="app-panel">
+          <svg
+            class="app-illustration"
+            viewBox="0 0 100 100"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="25"
+              y="10"
+              width="50"
+              height="80"
+              rx="8"
+              stroke="#3a0b5a"
+              stroke-width="4"
+            />
+            <circle cx="50" cy="80" r="3" fill="#3a0b5a" />
+            <rect x="35" y="30" width="30" height="5" rx="2" fill="#c81e61" />
+            <rect x="35" y="40" width="30" height="5" rx="2" fill="#5e0d8b" />
+          </svg>
+
+          <h3>Contact us faster using the Stackly App</h3>
+          <p>Download the app for quicker support and order tracking.</p>
+
+          <div class="store-buttons">
+            <a href="./4042.html"
+              ><img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                alt="Google Play"
+                class="store-badge"
+            /></a>
+            <a href="./4042.html"
+              ><img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
+                alt="App Store"
+                class="store-badge"
+            /></a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div class="footer-container">
+        <!-- SECTION 1: BRAND -->
+        <div class="footer-section">
+          <a href="./home2.html">
+            <img
+              src="./assets/logoog.webp"
+              alt="Stackly Logo"
+              class="footer-logo"
+          /></a>
+          <p class="brand-desc">
+            Fast grocery delivery at your doorstep. Freshness guaranteed within
+            minutes.
+          </p>
+        </div>
+
+        <!-- SECTION 2: QUICK LINKS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="./home2.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                HOME</a
+              >
+            </li>
+            <li>
+              <a href="./history.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                ORDER HISTORY</a
+              >
+            </li>
+            <li>
+              <a href="./dash.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                DASHBOARD</a
+              >
+            </li>
+            <li>
+              <a href="./contact.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  ></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                CONTACT</a
+              >
+            </li>
+            <li>
+              <a href="./profile.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                PROFILE</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- SECTION 3: ADDRESS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Head Office</h4>
+          <address class="address-box">
+            Stackly Pvt Ltd<br />
+            4th Floor, Tech Park<br />
+            Bengaluru, Karnataka<br />
+            India – 560001
+          </address>
+          <div class="contact-info">
+            <p><strong>Phone:</strong> +91 98765 43210</p>
+            <p><strong>Email:</strong> support@stackly.com</p>
+          </div>
+        </div>
+
+        <!-- SECTION 4: NEWSLETTER + SOCIAL -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Stay Updated</h4>
+          <form class="newsletter-form" action="./4042.html">
+            <input type="email" placeholder="Your Email Address" required />
+            <button type="submit">SUBSCRIBE</button>
+          </form>
+          <div class="social-icons">
+            <a href="./4042.html" class="social-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Twitter">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                ></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM BAR -->
+      <div class="footer-bottom">
+        <p class="copyright">
+          &copy; 2026 Stackly Delivery Services Pvt Ltd. All rights reserved.
+        </p>
+      </div>
+    </footer>
+    <script src="./nav2.js"></script>
+  </body>
+</html>

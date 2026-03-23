@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stackly - Sign Up</title>
+    <style>
+      :root {
+        --purple-bg: linear-gradient(180deg, #5e0d8b 0%, #3a0b5a 100%);
+        --pink-btn: #c81e61;
+        --pink-hover: #b01a55;
+        --text-white: #ffffff;
+        --input-bg: #ffffff;
+        --right-bg: #ffffff;
+        --terms-link: #ff60a8;
+        --error-red: #ff3333;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 0;
+      }
+
+      /* Modal Container */
+      .modal-card {
+        background: white;
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        position: relative;
+        margin: 20px;
+      }
+
+      /* Left Section */
+      .left-section {
+        flex: 1.2;
+        background: var(--purple-bg);
+        padding: 40px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .brand-name {
+        font-size: 42px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+      }
+
+      .left-section h1 {
+        font-size: 28px;
+        line-height: 1.2;
+        font-weight: 700;
+        margin-bottom: 30px;
+        white-space: pre-line;
+      }
+
+      /* Form Styling */
+      .signup-form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .input-group {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .input-container {
+        background: var(--input-bg);
+        border-radius: 12px;
+        padding: 0 20px;
+        height: 54px;
+        display: flex;
+        align-items: center;
+        transition: box-shadow 0.3s ease;
+      }
+
+      .input-container:focus-within {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+      }
+
+      .country-code {
+        color: #333;
+        font-weight: 600;
+        padding-right: 10px;
+        border-right: 1px solid #ddd;
+        margin-right: 15px;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        white-space: nowrap;
+      }
+
+      .country-code span {
+        color: #888;
+        font-size: 10px;
+      }
+
+      input {
+        border: none;
+        outline: none;
+        flex: 1;
+        font-size: 16px;
+        color: #333;
+        background: transparent;
+        height: 100%;
+        width: 100%;
+      }
+
+      input::placeholder {
+        color: #aaa;
+      }
+
+      .password-toggle {
+        cursor: pointer;
+        padding-left: 10px;
+        color: #888;
+        user-select: none;
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .error-msg {
+        color: var(--terms-link);
+        font-size: 11px;
+        margin-top: 4px;
+        margin-left: 20px;
+        font-weight: 600;
+        display: none;
+      }
+
+      /* Signup Button */
+      .btn-signup {
+        background: var(--pink-btn);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        height: 54px;
+        font-size: 18px;
+        font-weight: 700;
+        margin-top: 10px;
+        cursor: pointer;
+        transition:
+          background 0.3s ease,
+          transform 0.1s ease;
+      }
+
+      .btn-signup:hover {
+        background: var(--pink-hover);
+      }
+
+      .btn-signup:active {
+        transform: scale(0.98);
+      }
+
+      /* Login Link */
+      .login-prompt {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .login-prompt a {
+        color: var(--terms-link);
+        text-decoration: none;
+        font-weight: 700;
+        margin-left: 5px;
+      }
+
+      .login-prompt a:hover {
+        text-decoration: underline;
+      }
+
+      .terms-text {
+        font-size: 12px;
+        text-align: center;
+        margin-top: 30px;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 500;
+      }
+
+      .terms-text a {
+        color: var(--terms-link);
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      /* Right Section */
+      .right-section {
+        flex: 0.8;
+        background: var(--right-bg);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        color: #333;
+        cursor: pointer;
+        line-height: 1;
+        z-index: 10;
+      }
+
+      .illustration {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 25px;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .illustration svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .right-section h2 {
+        color: #3a0b5a;
+        font-size: 22px;
+        text-align: center;
+        font-weight: 800;
+        margin-bottom: 5px;
+        line-height: 1.2;
+      }
+
+      .right-section p {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .store-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 180px;
+      }
+
+      .store-btn {
+        background: #000;
+        border-radius: 8px;
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        transition: background 0.2s ease;
+      }
+
+      .store-btn:hover {
+        background: #222;
+      }
+
+      .store-text {
+        color: white;
+        text-align: left;
+      }
+
+      .store-text .top {
+        font-size: 8px;
+        display: block;
+        text-transform: uppercase;
+      }
+
+      .store-text .bottom {
+        font-size: 14px;
+        font-weight: 600;
+        display: block;
+      }
+
+      /* MOBILE RESPONSIVE FIXES */
+      @media (max-width: 768px) {
+        body {
+          align-items: flex-start;
+        }
+
+        .modal-card {
+          flex-direction: column;
+          margin: 0;
+          border-radius: 0;
+          min-height: 100vh;
+          box-shadow: none;
+        }
+
+        .left-section {
+          flex: none;
+          padding: 40px 25px;
+          border-radius: 0 0 30px 30px;
+        }
+
+        .right-section {
+          flex: none;
+          padding: 40px 25px;
+          background-color: #f9f9f9;
+        }
+
+        .brand-name {
+          font-size: 36px;
+          margin-bottom: 15px;
+        }
+
+        .left-section h1 {
+          font-size: 24px;
+          margin-bottom: 25px;
+        }
+
+        .illustration {
+          width: 100px;
+          height: 100px;
+          margin-bottom: 15px;
+        }
+
+        .right-section h2 {
+          font-size: 20px;
+        }
+
+        .store-buttons {
+          flex-direction: row;
+          max-width: 100%;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .store-btn {
+          flex: 1;
+          min-width: 140px;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .store-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+        .store-btn {
+          width: 100%;
+          max-width: 180px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="modal-card">
+      <!-- Left Side: Branding and Form -->
+      <section class="left-section">
+        <div class="brand-name">STACKLY</div>
+        <h1>Create your account<br />in minutes</h1>
+
+        <form class="signup-form" id="signupForm" action="./404.html">
+          <!-- Phone Number -->
+          <div class="input-group">
+            <div class="input-container">
+              <div class="country-code">IN +91 <span></span></div>
+              <input
+                type="tel"
+                id="phone"
+                placeholder="Enter Phone Number"
+                maxlength="10"
+                inputmode="numeric"
+              />
+            </div>
+            <span class="error-msg" id="phoneError"
+              >Please enter a valid 10-digit number</span
+            >
+          </div>
+
+          <!-- Password -->
+          <div class="input-group">
+            <div class="input-container">
+              <input type="password" id="password" placeholder="Password" />
+              <span class="password-toggle" onclick="togglePassword('password')"
+                >SHOW</span
+              >
+            </div>
+            <span class="error-msg" id="passwordError"
+              >Minimum 6 characters required</span
+            >
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="input-group">
+            <div class="input-container">
+              <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+              />
+              <span
+                class="password-toggle"
+                onclick="togglePassword('confirmPassword')"
+                >SHOW</span
+              >
+            </div>
+            <span class="error-msg" id="confirmError"
+              >Passwords do not match</span
+            >
+          </div>
+
+          <button type="submit" class="btn-signup">Continue</button>
+        </form>
+
+        <div class="login-prompt">
+          Already have an account? <a href="./login.html">Log In</a>
+        </div>
+
+        <p class="terms-text">
+          By continuing, you agree to our<br />
+          <a href="./404.html">Terms of Service</a> &
+          <a href="./404.html">Privacy Policy</a>
+        </p>
+      </section>
+
+      <!-- Right Side: App Info -->
+      <section class="right-section">
+        <!-- <div class="close-btn">&times;</div> -->
+
+        <div class="illustration">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="70" fill="#f0f0f0" />
+            <rect x="75" y="50" width="50" height="95" rx="10" fill="#3a0b5a" />
+            <rect x="80" y="58" width="40" height="70" rx="4" fill="#4a1b6a" />
+            <text
+              x="100"
+              y="100"
+              font-family="Arial"
+              font-weight="bold"
+              font-size="24"
+              fill="white"
+              text-anchor="middle"
+            >
+              S
+            </text>
+            <circle cx="100" cy="138" r="4" fill="white" opacity="0.5" />
+            <circle cx="50" cy="80" r="8" fill="#ff60a8" opacity="0.6" />
+            <circle cx="150" cy="130" r="6" fill="#ff60a8" opacity="0.4" />
+          </svg>
+        </div>
+
+        <h2>Order faster &<br />easier everytime</h2>
+        <p>with the Stackly App</p>
+
+        <div class="store-buttons">
+          <a href="./404.html" class="store-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+              <path
+                fill="#fff"
+                d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.61 3,21.09 3,20.5M16.81,15.12L18.81,14.12C20.4,13.32 20.4,10.68 18.81,9.88L16.81,8.88L14.44,11.25L16.81,15.12M14.41,12.75L4.56,22.6C4.7,22.65 4.85,22.69 5,22.69C5.47,22.69 5.91,22.47 6.19,22.11L14.41,12.75M14.41,11.25L6.19,1.89C5.91,1.53 5.47,1.31 5,1.31C4.85,1.31 4.7,1.35 4.56,1.4L14.41,11.25Z"
+              />
+            </svg>
+            <div class="store-text">
+              <span class="top">GET IT ON</span>
+              <span class="bottom">Google Play</span>
+            </div>
+          </a>
+          <a href="./404.html" class="store-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+              <path
+                fill="#fff"
+                d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"
+              />
+            </svg>
+            <div class="store-text">
+              <span class="top">Download on the</span>
+              <span class="bottom">App Store</span>
+            </div>
+          </a>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      // Toggle Password Visibility
+      function togglePassword(inputId) {
+        const input = document.getElementById(inputId);
+        const toggle = input.nextElementSibling;
+        if (input.type === "password") {
+          input.type = "text";
+          toggle.textContent = "HIDE";
+        } else {
+          input.type = "password";
+          toggle.textContent = "SHOW";
+        }
+      }
+
+      // Form Validation
+      const form = document.getElementById("signupForm");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const phone = document.getElementById("phone").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        // Reset errors
+        document
+          .querySelectorAll(".error-msg")
+          .forEach((msg) => (msg.style.display = "none"));
+
+        let isValid = true;
+
+        // 1. Phone Validation (exactly 10 digits)
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(phone)) {
+          document.getElementById("phoneError").style.display = "block";
+          isValid = false;
+        }
+
+        // 2. Password Validation (min 6 chars)
+        if (password.length < 6) {
+          document.getElementById("passwordError").style.display = "block";
+          isValid = false;
+        }
+
+        // 3. Confirm Password Validation (match)
+        // if (password !== confirmPassword || confirmPassword === "") {
+        //   document.getElementById("confirmError").style.display = "block";
+        //   isValid = false;
+        // }
+
+        // if (isValid) {
+        //   console.log("Account Created");
+        //   const btn = document.querySelector(".btn-signup");
+        //   btn.textContent = "Account Created ✓";
+        //   btn.style.background = "#28a745";
+        //   btn.disabled = true;
+        // }
+        if (isValid) {
+          window.location.href = "./404.html";
+        }
+      });
+
+      // Numeric only for phone field
+      document.getElementById("phone").addEventListener("input", function (e) {
+        this.value = this.value.replace(/[^0-9]/g, "");
+      });
+    </script>
+  </body>
+</html>

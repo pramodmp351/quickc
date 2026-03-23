@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stackly Footer Component</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-dark: #1b1b1b;
+        --text-main: #e5e5e5;
+        --text-muted: #a0a0a0;
+        --accent: #c81e61;
+        --white: #ffffff;
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f4f4f4;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      footer {
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        padding: 60px 20px 20px;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+      }
+
+      /* Responsive Breakpoints */
+      @media (min-width: 768px) {
+        .footer-container {
+          grid-template-columns: repeat(2, 1fr);
+          text-align: left;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .footer-container {
+          grid-template-columns: 1.2fr 0.8fr 1fr 1.2fr;
+        }
+      }
+
+      /* Section Typography */
+      .footer-heading {
+        color: var(--white);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Section 1: Brand */
+      .footer-logo {
+        max-width: 150px;
+        height: auto;
+        margin-bottom: 15px;
+        filter: brightness(0) invert(1); /* Makes dark logos visible until real src added */
+      }
+
+      .brand-desc {
+        color: var(--text-muted);
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      /* Section 2: Quick Links */
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 12px;
+      }
+
+      .footer-links a {
+        color: var(--text-main);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: var(--transition);
+        font-size: 0.95rem;
+      }
+
+      .footer-links a:hover {
+        color: var(--accent);
+        transform: translateX(5px);
+      }
+
+      .link-icon {
+        width: 18px;
+        height: 18px;
+        stroke: currentColor;
+        stroke-width: 2;
+        fill: none;
+      }
+
+      /* Section 3: Address */
+      .address-box {
+        font-style: normal;
+        line-height: 1.6;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .contact-info {
+        margin-top: 15px;
+      }
+
+      .contact-info p {
+        margin-bottom: 5px;
+      }
+
+      .contact-info strong {
+        color: var(--text-main);
+      }
+
+      /* Section 4: Newsletter & Social */
+      .newsletter-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 25px;
+      }
+
+      .newsletter-form input {
+        padding: 12px 16px;
+        border-radius: 30px;
+        border: none;
+        background: var(--white);
+        color: var(--bg-dark);
+        outline: none;
+        font-size: 0.9rem;
+      }
+
+      .newsletter-form button {
+        background-color: var(--accent);
+        color: var(--white);
+        border: none;
+        padding: 12px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+      }
+
+      .newsletter-form button:hover {
+        background-color: #a3184e;
+        transform: translateY(-2px);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      @media (min-width: 768px) {
+        .social-icons {
+          justify-content: flex-start;
+        }
+      }
+
+      .social-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #2a2a2a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        text-decoration: none;
+      }
+
+      .social-btn svg {
+        width: 20px;
+        height: 20px;
+        fill: var(--text-main);
+        transition: var(--transition);
+      }
+
+      .social-btn:hover {
+        background-color: var(--accent);
+        transform: scale(1.1);
+      }
+
+      .social-btn:hover svg {
+        fill: var(--white);
+      }
+
+      /* Bottom Bar */
+      .footer-bottom {
+        margin-top: 50px;
+        padding-top: 25px;
+        border-top: 1px solid #2a2a2a;
+        text-align: center;
+      }
+
+      .copyright {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      @media (max-width: 767px) {
+        .footer-links a {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <footer>
+      <div class="footer-container">
+        <!-- SECTION 1: BRAND -->
+        <div class="footer-section">
+          <img
+            src="./assets/logoog.webp"
+            alt="Stackly Logo"
+            class="footer-logo"
+          />
+          <p class="brand-desc">
+            Fast grocery delivery at your doorstep. Freshness guaranteed within
+            minutes.
+          </p>
+        </div>
+
+        <!-- SECTION 2: QUICK LINKS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="./home2.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  ></path>
+                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                HOME</a
+              >
+            </li>
+            <li>
+              <a href="./history.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+                ORDER HISTORY</a
+              >
+            </li>
+            <li>
+              <a href="./dash.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                DASHBOARD</a
+              >
+            </li>
+            <li>
+              <a href="./contact.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  ></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                CONTACT</a
+              >
+            </li>
+            <li>
+              <a href="./profile.html"
+                ><svg class="link-icon" viewBox="0 0 24 24">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                PROFILE</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <!-- SECTION 3: ADDRESS -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Head Office</h4>
+          <address class="address-box">
+            Stackly Pvt Ltd<br />
+            4th Floor, Tech Park<br />
+            Bengaluru, Karnataka<br />
+            India – 560001
+          </address>
+          <div class="contact-info">
+            <p><strong>Phone:</strong> +91 98765 43210</p>
+            <p><strong>Email:</strong> support@stackly.com</p>
+          </div>
+        </div>
+
+        <!-- SECTION 4: NEWSLETTER + SOCIAL -->
+        <div class="footer-section">
+          <h4 class="footer-heading">Stay Updated</h4>
+          <form class="newsletter-form" action="./4042.html">
+            <input type="email" placeholder="Your Email Address" required />
+            <button type="submit">SUBSCRIBE</button>
+          </form>
+          <div class="social-icons">
+            <a href="./4042.html" class="social-btn" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Instagram">
+              <svg viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="Twitter">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"
+                ></path>
+              </svg>
+            </a>
+            <a href="./4042.html" class="social-btn" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                ></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM BAR -->
+      <div class="footer-bottom">
+        <p class="copyright">
+          &copy; 2026 Stackly Delivery Services Pvt Ltd. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
